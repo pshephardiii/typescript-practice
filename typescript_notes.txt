@@ -1,3 +1,147 @@
 TypeScript is just a compiler used during development to write better code
 In the end, it just ends up being JavaScript code in production
 
+Types:
+
+- any:
+default type in JavaScript
+
+whole point of using typeScript is to avoid using the any type
+
+- unknown:
+similar to any type but with subtle differences
+
+unknown is better than any, as it will throw an error if you use an unknown type in a type-specific way (like multiplying it)
+
+forces you to check to check the value before an operation (if (typeof number....){....})
+
+- boolean
+value is always true or false
+
+can be assigned to an expression that has a boolean value (2 + 2 === 4 would be true)
+
+- number
+can assign any number, including floats and negatives
+
+also can assign expressions that have a number value
+
+- bigint
+you can use bigint constructor method:
+let bigInt1 = BigInt(94584)
+
+or use this syntax:
+let bigInt2 = 12334445n
+
+lets you use integers that are higher than the maximum safe integer
+2 ^ 53
+
+declaration:
+let a: bigint = BigInt(value: 12344656787)
+
+bigints cannot have decimal values
+
+can't use Math object on bigint
+
+- string
+
+any value between single or double quotes
+
+includes expressions that end up with a value of string (like a concatenation)
+
+TYPE INFERENCE:
+
+let firstname = "John"
+
+even though we didn't explicitly assign the string type (let firstname: string = ...), typeScript will infer that firstname should be a string type
+
+same thing will happen with numbers
+
+On the above two cases, rely on inference 
+
+When you declare a variable without a value (let finalResult), you should assign the type (let finalResult: number)
+
+We'll discuss more cases when we can rely on type inference and when we cannot
+
+- Object Type
+
+I know this... same as JavaScript
+
+typeScript will infer the object type and often the types of the properties (number, string, etc.)
+
+however, sometimes we need to be explicit (pay attention to semicolons and colons):
+let car: {
+    color: string;
+    brand: string;
+    image?: string; ===> question mark adds an optional property
+} = {
+    color: 'red',
+    brand: 'bmw',
+}
+
+TYPE ALIASES:
+
+type Car = {
+    color: string;
+    brand: string;
+    image?: string;
+}
+
+let car1: Car = {
+    color: 'red',
+    brand: 'bmw',
+}
+
+let car2: Car = {
+    color: 'blue',
+    brand: 'suv',
+}
+
+UNION TYPES:
+can have properties of either one or both of the types of the union 
+
+must have all properties of at least one of the types
+
+ex.
+
+type Dog = {
+    name: string
+    barks: boolean
+    wags: boolean
+}
+
+type Cat = {
+    name: string
+    purrs: boolean
+}
+
+type DogAndCatUnion = Dog | Cat
+
+let dog: DogAndCatUnion = {
+    name: "Buddy",
+    barks: true,
+    wags: true,
+}
+
+let cat: DogAndCatUnion = {
+    name: "Bella",
+    "purrs: true,
+}
+
+let dogAndCat: DogAndCatUnion = {
+    name: "Hybrid",
+    barks: true,
+    wags: false,
+    purrs: true,
+}
+
+UNION TYPES WITH PRIMITIVE TYPES:
+
+type stringOrNumber = number | string
+
+function addNumberOrString(a: stringOrNumber, b: stringOrNumber) {
+    if (typeof a === "number" && typeof b === "number") {
+        return a + b
+    } else {
+        return a.toString() + b.toString()
+    }
+}
