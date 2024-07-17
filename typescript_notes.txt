@@ -145,3 +145,43 @@ function addNumberOrString(a: stringOrNumber, b: stringOrNumber) {
         return a.toString() + b.toString()
     }
 }
+
+INTERSECTION TYPES:
+
+type HybridAnimal = Dog & Cat
+
+will find all common properties and will pick up all unique properties
+
+ex. with classes above in union type explanation, will include properties for name, barks, wags, and purrs
+
+INDEX SIGNATURES:
+
+needed in cases where we don't know the exact index values but we do know the patterns of such keys and properties
+
+type Airplane = {
+    flightNumber: string
+    airplaneModel: string
+    dateOfDeparture: string
+    timeOfDeparture: string
+    from: string
+    to: string
+    seats: {
+        orderProperty: string // the order will depend on alphebetic part of string 
+        [key:string] : string  // This is the index signature //
+        // can use | to set multiple types like always
+        // ex. [key:string/number]
+    }
+}
+
+const airplane: Airplane = {
+    flightNumber: "SG102",
+    airplaneModel: "A380",
+    dateOfDeparture: "01/12/2022",
+    timeOfDeparture: "32:10",
+    from: "JFK",
+    to: "DCA",
+    seats: {
+        "10A": "Mark Thomas",
+        "10B": "John Jacobs",
+    }
+}
